@@ -1,0 +1,147 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="dangnhap.css">
+
+</head>
+<body>
+    <div class="trangdangnhap">
+        <div class="signin-signup">
+            <form action="" class="signin">
+                <h2 class="title"> Đăng nhập</h2>
+                <div class="nhap">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Tài Khoản">
+                </div>
+                <div class="nhap">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Mật Khẩu">
+                </div>
+                <input type="sumbit" value="Đăng nhập" class="btn">
+                <p class="social-text"> Hoặc đăng nhập bằng cách khác</p>
+                <div class="dangnhapkhac">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-google"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-discord"></i></a>
+                </div>
+            </form>
+            <form action="" class="signup">
+                <h2 class="title"> Đăng Ký</h2>
+                <div class="nhap">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Tài Khoản" id="tendangnhap">
+                </div>
+                <div class="nhap">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Email" id="email"> 
+                </div>
+                <div class="nhap">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Mật Khẩu" id="matkhau">
+                </div>
+                <div class="nhap">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Nhập lại mật Khẩu" id="nhaplaimatkhau" >
+                </div>
+                <input type="submit" class="btn" id="dangki" value="Đăng Ký" onclick="themthanhvien()">
+                <p class="social-text"> Hoặc đăng nhập bằng cách khác</p>
+                <div class="dangnhapkhac">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-google"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-discord"></i></a>
+                </div>
+            </form>
+        </div>
+        <div class="hieuung">
+                <div class="pannel left">
+                    <div class="noidung">
+                        <h3>Bạn đã có tài khoản ?</h3>
+                        <p> Nếu bạn là thành viên cũ hãy đăng nhập vào hệ thống để nhận được ưu đãi tốt nhất</p>
+                        <button class="btn" id="sign-in-btn">Đăng nhập</button>
+                        <div> <img src="img/4b1b07fa-614c-4789-be2c-f20bde7ce09f.png" alt="" width="100%" class="image"> </div>
+                    </div>
+                </div>
+                <div class="pannel right">
+                    <div class="noidung">
+                        <h3>Thành viên mới ?</h3>
+                        <p>Nếu bạn là thành viên mới thì hãy đăng ký ngay để nhận được ưu đãi tốt nhất còn chần chờ gì nữa ?</p>
+                        <button class="btn" id="sign-up-btn">Đăng Ký</button>
+                        <div> <img src="img/948db331-8cad-4b81-9128-ce456d49cc60.png" alt="" width="100%" class="image"></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <script>
+        const sign_in_btn = document.querySelector("#sign-in-btn");
+        const sign_up_btn = document.querySelector("#sign-up-btn");
+        const container = document.querySelector(".trangdangnhap");
+        var dem = 0;
+        function themthanhvien(){
+            //B1: lấy dữ liệu
+            var id = document.getElementById("tendangnhap").value;
+            var mail = document.getElementById("email").value;
+            var pass = document.getElementById("matkhau").value;
+            var cf_pass = document.getElementById("nhaplaimatkhau").value;
+            //B2: Kiểm tra tính hợp lệ
+            
+            if (!isnotNull(id)) {
+                alert("Vui lòng nhập tên đăng nhập");
+            }else if (checkID(id)) {
+                alert("Tên đăng nhập chỉ được chứa ký tự chữ và số");
+            }else if (!isnotNull(mail)) {
+                alert("Vui lòng nhập Email");
+            }else if (!isEmail(mail)) {
+                alert("Email không đúng định dạng");
+            }else if (!isnotNull(pass)) {
+                alert("Vui lòng nhập mật khẩu");
+            }else if (!isStrongPassword(pass)) {
+                alert("Vui lòng nhập mật khẩu mạnh");
+            }else if (pass != cf_pass) {
+                alert("Mật khẩu không khớp");
+            }else { //Dữ liệu hợp lệ 
+                //B3: thêm dữ liệu vào bảng
+                dem++;
+                themdulieu(dem, id, mail, pass);
+                alert("Đăng ký thành công");
+            }
+             // Hàm kiểm tra ID
+            function checkID(chuoi){
+            if (!/^[a-zA-Z0-9]+$/.test(chuoi)){
+                return true;
+            }
+        }
+
+        // Hàm kiểm tra Email
+            function isEmail(chuoi) {
+            var mailRegex = /^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i
+            if (mailRegex.test(chuoi)) return true;
+                return false;
+        }
+        //Hàm kiểm tra Password
+            function isStrongPassword(chuoi){
+            var strongRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+            if (strongRegex.test(chuoi)) return true;
+            return false;
+        }
+        // Hàm kiểm tra Trống
+            function isnotNull(chuoi) {
+            if(chuoi == "")return false;
+                return true;   
+        }
+        }
+        sign_up_btn.addEventListener("click", () =>{
+            container.classList.add("sign-up-mode");
+        });
+
+        sign_in_btn.addEventListener("click", () =>{
+            container.classList.remove("sign-up-mode");
+        });
+    </script>
+</body>
